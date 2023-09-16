@@ -23,12 +23,11 @@ export default function TrackListItem({ track }: TrackListItemProps) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "black",
-    marginVertical: 5,
-    padding: 5,
-    flexDirection: "row",
-    alignItems:'center',
-    width:'100%'
+    width: '100%',
+    padding: 10,
+    gap: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   title: {
     color: "white",

@@ -1,31 +1,51 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, FlatList } from "react-native";
 
-import EditScreenInfo from '../../components/EditScreenInfo';
-import { Text, View } from '../../components/Themed';
+import { tracks } from "../../../assets/data/tracks";
+import { Text, View } from "../../components/Themed";
+import TrackListItem from "../../components/TrackListItem";
+import { TextInput } from "react-native-gesture-handler";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { FontAwesome } from "@expo/vector-icons";
+import { useState } from "react";
 
-export default function TabTwoScreen() {
+export default function SearchScreen() {
+  const [search, setSearch] = useState("Default Search");
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab Two</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/two.tsx" />
-    </View>
+    <SafeAreaView style={styles.container}>
+      {/* Header */}
+      <View style={styles.header}>
+        <FontAwesome name="search" size={16} color="gray" />
+        <TextInput
+        value={search}
+        placeholder="What do you want to listen to?"
+        onChangeText={setSearch}
+        style={styles.input}
+        />
+        <Text onPress={()=> setSearch('')} style={{ color: "white" }}>Cancel</Text>
+      </View>
+      <FlatList
+        data={tracks}
+        renderItem={({ item }) => <TrackListItem track={item} />}
+        showsVerticalScrollIndicator={false}
+      />
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
+  input: {
+    backgroundColor: "#121314",
+    color: "white",
+    flex: 1,
+    marginHorizontal: 10,
+    padding: 8,
+    borderRadius: 5,
   },
 });
